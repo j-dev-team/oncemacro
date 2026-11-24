@@ -1,0 +1,1420 @@
+{
+ "version": 1,
+ "examples": [
+  {
+   "key": "shots",
+   "needs": [],
+   "name": {
+    "ko": "예시_화면 사진 3장 찍기",
+    "en": "Example - Take 3 screenshots"
+   },
+   "description": {
+    "ko": "3초마다 화면을 한 장씩, 모두 3장 찍어 기록 폴더(logs/snapshots)에 저장합니다. 마우스·키보드는 쓰지 않습니다.",
+    "en": "Takes a screenshot every 3 seconds, 3 in total, and saves them in the log folder (logs/snapshots). It does not use the mouse or keyboard."
+   },
+   "steps": [
+    {
+     "type": "repeat",
+     "times": 3,
+     "steps": [
+      {
+       "type": "snapshot",
+       "name": "example"
+      },
+      {
+       "type": "delay",
+       "seconds": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "excel",
+   "needs": [
+    "excel"
+   ],
+   "name": {
+    "ko": "예시_엑셀 지점 매출 모으기",
+    "en": "Example - Collect branch sales in Excel"
+   },
+   "description": {
+    "ko": "지점별 엑셀 파일 5개의 매출을 정리표 하나로 모아 예시/출력 폴더에 저장합니다. 엑셀이 있어야 하고, 엑셀 창은 뜨지 않습니다.",
+    "en": "Collects sales from 5 branch Excel files into one summary and saves it in the example output folder. Needs Excel; no Excel window opens."
+   },
+   "steps": [
+    {
+     "type": "excel",
+     "action": "open",
+     "path": "@DATA@\\자료\\정리표_양식.xlsx"
+    },
+    {
+     "type": "set",
+     "var": "목",
+     "value": 2
+    },
+    {
+     "type": "group",
+     "steps": [
+      {
+       "type": "set",
+       "var": "지점",
+       "value": "강남"
+      },
+      {
+       "type": "excel",
+       "action": "open",
+       "path": "@DATA@\\자료\\지점_강남.xlsx"
+      },
+      {
+       "type": "excel",
+       "action": "last_row",
+       "sheet": "매출",
+       "cell": "A",
+       "var": "끝"
+      },
+      {
+       "type": "set",
+       "var": "행",
+       "value": 2
+      },
+      {
+       "type": "repeat",
+       "while": {
+        "var": "행",
+        "le": {
+         "var": "끝"
+        }
+       },
+       "steps": [
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\자료\\지점_강남.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "A{행}",
+         "var": "날짜"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "B{행}",
+         "var": "품목"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "C{행}",
+         "var": "수량"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "D{행}",
+         "var": "금액"
+        },
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\자료\\정리표_양식.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "A{목}",
+         "value": "{지점}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "B{목}",
+         "value": "{날짜}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "C{목}",
+         "value": "{품목}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "D{목}",
+         "value": "{수량}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "E{목}",
+         "value": "{금액}"
+        },
+        {
+         "type": "set",
+         "var": "목",
+         "add": 1
+        },
+        {
+         "type": "set",
+         "var": "행",
+         "add": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "group",
+     "steps": [
+      {
+       "type": "set",
+       "var": "지점",
+       "value": "부산"
+      },
+      {
+       "type": "excel",
+       "action": "open",
+       "path": "@DATA@\\자료\\지점_부산.xlsx"
+      },
+      {
+       "type": "excel",
+       "action": "last_row",
+       "sheet": "매출",
+       "cell": "A",
+       "var": "끝"
+      },
+      {
+       "type": "set",
+       "var": "행",
+       "value": 2
+      },
+      {
+       "type": "repeat",
+       "while": {
+        "var": "행",
+        "le": {
+         "var": "끝"
+        }
+       },
+       "steps": [
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\자료\\지점_부산.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "A{행}",
+         "var": "날짜"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "B{행}",
+         "var": "품목"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "C{행}",
+         "var": "수량"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "D{행}",
+         "var": "금액"
+        },
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\자료\\정리표_양식.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "A{목}",
+         "value": "{지점}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "B{목}",
+         "value": "{날짜}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "C{목}",
+         "value": "{품목}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "D{목}",
+         "value": "{수량}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "E{목}",
+         "value": "{금액}"
+        },
+        {
+         "type": "set",
+         "var": "목",
+         "add": 1
+        },
+        {
+         "type": "set",
+         "var": "행",
+         "add": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "group",
+     "steps": [
+      {
+       "type": "set",
+       "var": "지점",
+       "value": "대구"
+      },
+      {
+       "type": "excel",
+       "action": "open",
+       "path": "@DATA@\\자료\\지점_대구.xlsx"
+      },
+      {
+       "type": "excel",
+       "action": "last_row",
+       "sheet": "매출",
+       "cell": "A",
+       "var": "끝"
+      },
+      {
+       "type": "set",
+       "var": "행",
+       "value": 2
+      },
+      {
+       "type": "repeat",
+       "while": {
+        "var": "행",
+        "le": {
+         "var": "끝"
+        }
+       },
+       "steps": [
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\자료\\지점_대구.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "A{행}",
+         "var": "날짜"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "B{행}",
+         "var": "품목"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "C{행}",
+         "var": "수량"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "D{행}",
+         "var": "금액"
+        },
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\자료\\정리표_양식.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "A{목}",
+         "value": "{지점}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "B{목}",
+         "value": "{날짜}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "C{목}",
+         "value": "{품목}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "D{목}",
+         "value": "{수량}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "E{목}",
+         "value": "{금액}"
+        },
+        {
+         "type": "set",
+         "var": "목",
+         "add": 1
+        },
+        {
+         "type": "set",
+         "var": "행",
+         "add": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "group",
+     "steps": [
+      {
+       "type": "set",
+       "var": "지점",
+       "value": "광주"
+      },
+      {
+       "type": "excel",
+       "action": "open",
+       "path": "@DATA@\\자료\\지점_광주.xlsx"
+      },
+      {
+       "type": "excel",
+       "action": "last_row",
+       "sheet": "매출",
+       "cell": "A",
+       "var": "끝"
+      },
+      {
+       "type": "set",
+       "var": "행",
+       "value": 2
+      },
+      {
+       "type": "repeat",
+       "while": {
+        "var": "행",
+        "le": {
+         "var": "끝"
+        }
+       },
+       "steps": [
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\자료\\지점_광주.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "A{행}",
+         "var": "날짜"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "B{행}",
+         "var": "품목"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "C{행}",
+         "var": "수량"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "D{행}",
+         "var": "금액"
+        },
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\자료\\정리표_양식.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "A{목}",
+         "value": "{지점}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "B{목}",
+         "value": "{날짜}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "C{목}",
+         "value": "{품목}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "D{목}",
+         "value": "{수량}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "E{목}",
+         "value": "{금액}"
+        },
+        {
+         "type": "set",
+         "var": "목",
+         "add": 1
+        },
+        {
+         "type": "set",
+         "var": "행",
+         "add": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "group",
+     "steps": [
+      {
+       "type": "set",
+       "var": "지점",
+       "value": "대전"
+      },
+      {
+       "type": "excel",
+       "action": "open",
+       "path": "@DATA@\\자료\\지점_대전.xlsx"
+      },
+      {
+       "type": "excel",
+       "action": "last_row",
+       "sheet": "매출",
+       "cell": "A",
+       "var": "끝"
+      },
+      {
+       "type": "set",
+       "var": "행",
+       "value": 2
+      },
+      {
+       "type": "repeat",
+       "while": {
+        "var": "행",
+        "le": {
+         "var": "끝"
+        }
+       },
+       "steps": [
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\자료\\지점_대전.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "A{행}",
+         "var": "날짜"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "B{행}",
+         "var": "품목"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "C{행}",
+         "var": "수량"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "매출",
+         "cell": "D{행}",
+         "var": "금액"
+        },
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\자료\\정리표_양식.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "A{목}",
+         "value": "{지점}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "B{목}",
+         "value": "{날짜}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "C{목}",
+         "value": "{품목}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "D{목}",
+         "value": "{수량}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "모음",
+         "cell": "E{목}",
+         "value": "{금액}"
+        },
+        {
+         "type": "set",
+         "var": "목",
+         "add": 1
+        },
+        {
+         "type": "set",
+         "var": "행",
+         "add": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "excel",
+     "action": "open",
+     "path": "@DATA@\\자료\\정리표_양식.xlsx"
+    },
+    {
+     "type": "excel",
+     "action": "save_as",
+     "path": "@DATA@\\출력\\정리표_10월.xlsx"
+    },
+    {
+     "type": "excel",
+     "action": "close"
+    }
+   ],
+   "steps_en": [
+    {
+     "type": "excel",
+     "action": "open",
+     "path": "@DATA@\\data\\summary_template.xlsx"
+    },
+    {
+     "type": "set",
+     "var": "out",
+     "value": 2
+    },
+    {
+     "type": "group",
+     "steps": [
+      {
+       "type": "set",
+       "var": "branch",
+       "value": "Boston"
+      },
+      {
+       "type": "excel",
+       "action": "open",
+       "path": "@DATA@\\data\\branch_boston.xlsx"
+      },
+      {
+       "type": "excel",
+       "action": "last_row",
+       "sheet": "Sales",
+       "cell": "A",
+       "var": "last"
+      },
+      {
+       "type": "set",
+       "var": "row",
+       "value": 2
+      },
+      {
+       "type": "repeat",
+       "while": {
+        "var": "row",
+        "le": {
+         "var": "last"
+        }
+       },
+       "steps": [
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\data\\branch_boston.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "A{row}",
+         "var": "date"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "B{row}",
+         "var": "item"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "C{row}",
+         "var": "qty"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "D{row}",
+         "var": "amount"
+        },
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\data\\summary_template.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "A{out}",
+         "value": "{branch}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "B{out}",
+         "value": "{date}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "C{out}",
+         "value": "{item}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "D{out}",
+         "value": "{qty}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "E{out}",
+         "value": "{amount}"
+        },
+        {
+         "type": "set",
+         "var": "out",
+         "add": 1
+        },
+        {
+         "type": "set",
+         "var": "row",
+         "add": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "group",
+     "steps": [
+      {
+       "type": "set",
+       "var": "branch",
+       "value": "Chicago"
+      },
+      {
+       "type": "excel",
+       "action": "open",
+       "path": "@DATA@\\data\\branch_chicago.xlsx"
+      },
+      {
+       "type": "excel",
+       "action": "last_row",
+       "sheet": "Sales",
+       "cell": "A",
+       "var": "last"
+      },
+      {
+       "type": "set",
+       "var": "row",
+       "value": 2
+      },
+      {
+       "type": "repeat",
+       "while": {
+        "var": "row",
+        "le": {
+         "var": "last"
+        }
+       },
+       "steps": [
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\data\\branch_chicago.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "A{row}",
+         "var": "date"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "B{row}",
+         "var": "item"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "C{row}",
+         "var": "qty"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "D{row}",
+         "var": "amount"
+        },
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\data\\summary_template.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "A{out}",
+         "value": "{branch}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "B{out}",
+         "value": "{date}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "C{out}",
+         "value": "{item}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "D{out}",
+         "value": "{qty}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "E{out}",
+         "value": "{amount}"
+        },
+        {
+         "type": "set",
+         "var": "out",
+         "add": 1
+        },
+        {
+         "type": "set",
+         "var": "row",
+         "add": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "group",
+     "steps": [
+      {
+       "type": "set",
+       "var": "branch",
+       "value": "Denver"
+      },
+      {
+       "type": "excel",
+       "action": "open",
+       "path": "@DATA@\\data\\branch_denver.xlsx"
+      },
+      {
+       "type": "excel",
+       "action": "last_row",
+       "sheet": "Sales",
+       "cell": "A",
+       "var": "last"
+      },
+      {
+       "type": "set",
+       "var": "row",
+       "value": 2
+      },
+      {
+       "type": "repeat",
+       "while": {
+        "var": "row",
+        "le": {
+         "var": "last"
+        }
+       },
+       "steps": [
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\data\\branch_denver.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "A{row}",
+         "var": "date"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "B{row}",
+         "var": "item"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "C{row}",
+         "var": "qty"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "D{row}",
+         "var": "amount"
+        },
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\data\\summary_template.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "A{out}",
+         "value": "{branch}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "B{out}",
+         "value": "{date}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "C{out}",
+         "value": "{item}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "D{out}",
+         "value": "{qty}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "E{out}",
+         "value": "{amount}"
+        },
+        {
+         "type": "set",
+         "var": "out",
+         "add": 1
+        },
+        {
+         "type": "set",
+         "var": "row",
+         "add": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "group",
+     "steps": [
+      {
+       "type": "set",
+       "var": "branch",
+       "value": "Seattle"
+      },
+      {
+       "type": "excel",
+       "action": "open",
+       "path": "@DATA@\\data\\branch_seattle.xlsx"
+      },
+      {
+       "type": "excel",
+       "action": "last_row",
+       "sheet": "Sales",
+       "cell": "A",
+       "var": "last"
+      },
+      {
+       "type": "set",
+       "var": "row",
+       "value": 2
+      },
+      {
+       "type": "repeat",
+       "while": {
+        "var": "row",
+        "le": {
+         "var": "last"
+        }
+       },
+       "steps": [
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\data\\branch_seattle.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "A{row}",
+         "var": "date"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "B{row}",
+         "var": "item"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "C{row}",
+         "var": "qty"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "D{row}",
+         "var": "amount"
+        },
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\data\\summary_template.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "A{out}",
+         "value": "{branch}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "B{out}",
+         "value": "{date}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "C{out}",
+         "value": "{item}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "D{out}",
+         "value": "{qty}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "E{out}",
+         "value": "{amount}"
+        },
+        {
+         "type": "set",
+         "var": "out",
+         "add": 1
+        },
+        {
+         "type": "set",
+         "var": "row",
+         "add": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "group",
+     "steps": [
+      {
+       "type": "set",
+       "var": "branch",
+       "value": "Austin"
+      },
+      {
+       "type": "excel",
+       "action": "open",
+       "path": "@DATA@\\data\\branch_austin.xlsx"
+      },
+      {
+       "type": "excel",
+       "action": "last_row",
+       "sheet": "Sales",
+       "cell": "A",
+       "var": "last"
+      },
+      {
+       "type": "set",
+       "var": "row",
+       "value": 2
+      },
+      {
+       "type": "repeat",
+       "while": {
+        "var": "row",
+        "le": {
+         "var": "last"
+        }
+       },
+       "steps": [
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\data\\branch_austin.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "A{row}",
+         "var": "date"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "B{row}",
+         "var": "item"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "C{row}",
+         "var": "qty"
+        },
+        {
+         "type": "excel",
+         "action": "read",
+         "sheet": "Sales",
+         "cell": "D{row}",
+         "var": "amount"
+        },
+        {
+         "type": "excel",
+         "action": "open",
+         "path": "@DATA@\\data\\summary_template.xlsx"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "A{out}",
+         "value": "{branch}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "B{out}",
+         "value": "{date}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "C{out}",
+         "value": "{item}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "D{out}",
+         "value": "{qty}"
+        },
+        {
+         "type": "excel",
+         "action": "write",
+         "sheet": "Collected",
+         "cell": "E{out}",
+         "value": "{amount}"
+        },
+        {
+         "type": "set",
+         "var": "out",
+         "add": 1
+        },
+        {
+         "type": "set",
+         "var": "row",
+         "add": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "excel",
+     "action": "open",
+     "path": "@DATA@\\data\\summary_template.xlsx"
+    },
+    {
+     "type": "excel",
+     "action": "save_as",
+     "path": "@DATA@\\output\\summary_october.xlsx"
+    },
+    {
+     "type": "excel",
+     "action": "close"
+    }
+   ]
+  },
+  {
+   "key": "hwp",
+   "needs": [
+    "excel",
+    "hwp"
+   ],
+   "name": {
+    "ko": "예시_한글 재직증명서 채우기",
+    "en": "Example - Fill HWP certificates"
+   },
+   "description": {
+    "ko": "명단 엑셀의 앞 3명으로 한글 재직증명서 서식의 누름틀을 채워 3개 파일로 예시/출력 폴더에 저장합니다. 엑셀과 한글이 있어야 합니다.",
+    "en": "Fills the fields of an HWP certificate form with the first 3 people from a roster in Excel and saves 3 files in the example output folder. Needs Excel and Hancom Office (HWP)."
+   },
+   "steps": [
+    {
+     "type": "excel",
+     "action": "open",
+     "path": "@DATA@\\자료\\명단.xlsx"
+    },
+    {
+     "type": "set",
+     "var": "행",
+     "value": 2
+    },
+    {
+     "type": "repeat",
+     "times": 3,
+     "steps": [
+      {
+       "type": "excel",
+       "action": "read",
+       "sheet": "명단",
+       "cell": "A{행}",
+       "var": "이름"
+      },
+      {
+       "type": "excel",
+       "action": "read",
+       "sheet": "명단",
+       "cell": "B{행}",
+       "var": "부서"
+      },
+      {
+       "type": "excel",
+       "action": "read",
+       "sheet": "명단",
+       "cell": "C{행}",
+       "var": "직위"
+      },
+      {
+       "type": "excel",
+       "action": "read",
+       "sheet": "명단",
+       "cell": "D{행}",
+       "var": "입사일"
+      },
+      {
+       "type": "hwp",
+       "action": "open",
+       "path": "@DATA@\\자료\\서식_재직증명서.hwp"
+      },
+      {
+       "type": "hwp",
+       "action": "fill_field",
+       "name": "이름",
+       "text": "{이름}"
+      },
+      {
+       "type": "hwp",
+       "action": "fill_field",
+       "name": "부서",
+       "text": "{부서}"
+      },
+      {
+       "type": "hwp",
+       "action": "fill_field",
+       "name": "직위",
+       "text": "{직위}"
+      },
+      {
+       "type": "hwp",
+       "action": "fill_field",
+       "name": "입사일",
+       "text": "{입사일}"
+      },
+      {
+       "type": "hwp",
+       "action": "save_as",
+       "path": "@DATA@\\출력\\재직증명서_{이름}.hwp"
+      },
+      {
+       "type": "hwp",
+       "action": "close"
+      },
+      {
+       "type": "set",
+       "var": "행",
+       "add": 1
+      }
+     ]
+    },
+    {
+     "type": "excel",
+     "action": "close"
+    }
+   ],
+   "langs": [
+    "ko"
+   ]
+  }
+ ]
+}

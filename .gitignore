@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+build/
+dist/
+dist_v3/
+dist_lite/
+dist_public/
+logs/
+settings/
+macros_v2/
+image/
+*.log
+*.tmp

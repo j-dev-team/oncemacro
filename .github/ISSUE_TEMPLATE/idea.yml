@@ -1,0 +1,14 @@
+name: Idea or feedback
+description: Something you would like OnceMacro to do, or how it worked for you
+labels: [feedback]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea or experience
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: What task are you automating? (optional)

@@ -1,0 +1,32 @@
+name: Something went wrong
+description: A macro failed, got stuck, or the program misbehaved
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Tip: in the program, **Help → Send feedback / report a problem** makes a small zip (version, Windows version,
+        self-test, recent errors and run summaries). Screenshots and macro files are only included if you tick them.
+        Look inside, remove anything private, then attach it below.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How can we reproduce it?
+      description: The app you automated, the step type, and whether background mode was on.
+  - type: input
+    id: version
+    attributes:
+      label: OnceMacro version and Windows version
+      placeholder: "e.g. 0.9.0, Windows 11 23H2, English, 150% scaling"
+  - type: textarea
+    id: zip
+    attributes:
+      label: Feedback zip (optional)
+      description: Drag the zip from logs\feedback here.

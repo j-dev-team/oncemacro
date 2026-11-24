@@ -1,0 +1,61 @@
+{
+ "_설명": "웹메일 서비스별 화면 묶음. 화면이 바뀌면 이 파일의 그 서비스 부분만 고친다. verified=false 는 실제 로그인 화면으로 아직 확인 안 한 값(추정 선택자).",
+ "naver": {
+  "name": "네이버",
+  "verified": false,
+  "inbox_url": "https://mail.naver.com/v2/folders/0/all",
+  "compose_url": "https://mail.naver.com/v2/new",
+  "login_hosts": ["nid.naver.com"],
+  "list": {"row": "li.mail_item, div.mail_item, tr.mail_item", "from": ".mail_sender, .name, .button_sender", "subject": ".mail_title, .text, .subject",
+           "date": ".mail_date, .iDate, .time", "unread": ".unread, .is_unread, [class*='unread']", "attach": ".icon_attach, [class*='attach']",
+           "link": "a[href*='/read/'], a.mail_title_link, a"},
+  "read": {"body": ".mail_view_contents, #mail_read_scroll_view, .mail_body, [class*='read_content']"},
+  "attachments": {"link": ".file_list a[href], .attach_list a[href], a[href*='download']"},
+  "compose": {"to": "#recipient_input_element, input[name='to'], input[aria-label*='받는']", "subject": "#subject_title, input[name='subject']",
+              "body": "div[contenteditable='true'], iframe", "file": "input[type='file']",
+              "draft": "button.button_temp_save, button[class*='temp'], button:has-text('임시저장')",
+              "send": "button.button_write_task, button[class*='send'], button:has-text('보내기')"}
+ },
+ "daum": {
+  "name": "다음",
+  "verified": false,
+  "inbox_url": "https://mail.daum.net/top/INBOX",
+  "compose_url": "https://mail.daum.net/compose",
+  "login_hosts": ["logins.daum.net", "accounts.kakao.com"],
+  "list": {"row": "ul.list_mail > li, li.item_mail, tr.mail_item", "from": ".txt_from, .tit_from, .name", "subject": ".tit_subject, .txt_subject, .subject",
+           "date": ".txt_date, .date", "unread": ".unread, .ico_unread, [class*='unread']", "attach": ".ico_file, [class*='attach']", "link": "a.link_mail, a"},
+  "read": {"body": ".mail_view, .cont_view, #mailViewer, [class*='mail_content']"},
+  "attachments": {"link": ".list_file a[href], a[href*='download']"},
+  "compose": {"to": "input[name='to'], input[id*='toInput'], input[aria-label*='받는']", "subject": "input[name='subject'], input[id*='subject']",
+              "body": "div[contenteditable='true'], iframe", "file": "input[type='file']",
+              "draft": "button:has-text('임시저장'), button[class*='save']", "send": "button:has-text('보내기'), button[class*='send']"}
+ },
+ "nate": {
+  "name": "네이트",
+  "verified": false,
+  "inbox_url": "https://mail3.nate.com/#list/?pfolder=M",
+  "compose_url": "https://mail3.nate.com/#write/",
+  "login_hosts": ["xo.nate.com", "member.nate.com"],
+  "list": {"row": "tr.mail_list, li.mail_list, tbody tr", "from": ".from, .sender, td.name", "subject": ".subject, .title, td.subj",
+           "date": ".date, td.date", "unread": ".unread, .new, [class*='unread']", "attach": ".attach, [class*='file']", "link": "a"},
+  "read": {"body": "#mailBody, .mail_body, .view_content"},
+  "attachments": {"link": ".file a[href], a[href*='download']"},
+  "compose": {"to": "input[name='to'], #to, input[aria-label*='받는']", "subject": "input[name='subject'], #subject",
+              "body": "div[contenteditable='true'], iframe", "file": "input[type='file']",
+              "draft": "button:has-text('임시저장'), a:has-text('임시저장')", "send": "button:has-text('보내기'), a:has-text('보내기')"}
+ },
+ "gmail": {
+  "name": "구글(지메일)",
+  "verified": false,
+  "inbox_url": "https://mail.google.com/mail/u/0/#inbox",
+  "compose_url": "https://mail.google.com/mail/u/0/#inbox?compose=new",
+  "login_hosts": ["accounts.google.com"],
+  "list": {"row": "tr.zA", "from": "span.yP, span.zF", "subject": "span.bog", "date": "td.xW span", "unread": ".zE", "attach": ".brd, img.aZu, [aria-label*='첨부'], [aria-label*='Attachment']",
+           "link": "", "id_attr": "data-legacy-thread-id"},
+  "read": {"body": "div.a3s"},
+  "attachments": {"link": "div.aQH span.aZo a[href], a.aQy[href]"},
+  "compose": {"to": "input[aria-label*='수신자'], input[aria-label*='To'], textarea[name='to']", "subject": "input[name='subjectbox']",
+              "body": "div[aria-label*='메일 본문'], div[aria-label*='Message Body'], div[contenteditable='true']", "file": "input[type='file'][name='Filedata']",
+              "draft": "img.Ha, div[aria-label*='저장 및 닫기'], div[aria-label*='Save & close']", "send": "div[role='button'][data-tooltip*='보내기'], div[role='button'][data-tooltip*='Send']"}
+ }
+}
