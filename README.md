@@ -1,8 +1,8 @@
 # OnceMacro
 
-**Build it once. It repeats without AI.**
+**Your AI looks at the screen, builds the macro, and fixes it — then it runs on its own.**
 
-Your AI agent (Claude Code, Codex, ...) builds a Windows automation once; after that it runs again and again — no AI, no tokens.
+Tell your AI agent (Claude Code, Codex, ...) what to automate. It looks at the window, writes the macro, runs it and fixes what breaks; from then on the macro repeats without AI — no tokens.
 
 OnceMacro is a Windows desktop automation program with an MCP server. Agents such as Claude Code,
 Codex, Gemini CLI or Cursor use it to look at a window, find buttons and fields **by name**, test each
