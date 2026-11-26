@@ -2,6 +2,10 @@
 
 **Your AI looks at the screen, builds the macro, and fixes it — then it runs on its own.**
 
+![OnceMacro: the AI looks at an app, builds the macro, hits an error, fixes it and runs it again](media/demo/oncemacro_story.gif)
+
+1-minute video (with sound): [English](media/demo/oncemacro_story_en.mp4) · [한국어](media/demo/oncemacro_story_ko.mp4) · 한국어 설명: [README.ko.md](README.ko.md)
+
 Tell your AI agent (Claude Code, Codex, ...) what to automate. It looks at the window, writes the macro, runs it and fixes what breaks; from then on the macro repeats without AI — no tokens.
 
 OnceMacro is a Windows desktop automation program with an MCP server. Agents such as Claude Code,

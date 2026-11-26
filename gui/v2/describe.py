@@ -70,6 +70,36 @@ TEXT_ACTIONS = {"set": "그대로 만들기({변수} 넣기)", "replace": "바�
                 "pad": "앞에 0 채우기"}
 
 BRANCH_NAMES = {"then": "그러면", "else": "아니면", "steps": "할 일"}
+# 창 요소 종류(대상 element.type) — 스텝 한 줄 설명에 씀
+EL_TYPE_NAMES = {
+    "button": "버튼", "splitbutton": "버튼", "edit": "입력칸", "text": "글자", "checkbox": "체크 상자",
+    "radio": "선택 단추", "combo": "고르기 상자", "menuitem": "메뉴 항목", "menu": "메뉴", "tabitem": "탭",
+    "tab": "탭 묶음", "listitem": "목록 항목", "list": "목록", "treeitem": "트리 항목", "tree": "트리", "link": "링크",
+    "dataitem": "표 칸", "datagrid": "표", "table": "표", "image": "그림", "document": "문서", "window": "창",
+    "pane": "영역", "group": "묶음 영역", "slider": "슬라이더", "spinner": "숫자 상자", "progress": "진행 막대",
+    "statusbar": "상태줄", "toolbar": "도구 모음", "header": "머리글", "headeritem": "머리글 칸", "custom": "창 요소",
+}
+
+
+# 영어 화면용(다른 화면 글과 같은 한글 열쇠를 쓰면 번역이 서로 덮여서 따로 둠)
+EL_TYPE_NAMES_EN = {
+    "button": "button", "splitbutton": "button", "edit": "text box", "text": "text", "checkbox": "checkbox",
+    "radio": "radio button", "combo": "combo box", "menuitem": "menu item", "menu": "menu", "tabitem": "tab",
+    "tab": "tab group", "listitem": "list item", "list": "list", "treeitem": "tree item", "tree": "tree", "link": "link",
+    "dataitem": "table cell", "datagrid": "table", "table": "table", "image": "image", "document": "document",
+    "window": "window", "pane": "pane", "group": "group", "slider": "slider", "spinner": "number box",
+    "progress": "progress bar", "statusbar": "status bar", "toolbar": "toolbar", "header": "header",
+    "headeritem": "header cell", "custom": "window element",
+}
+
+
+def el_type_name(k: Any) -> str:
+    """창 요소 종류 이름(종류를 안 적었거나 모르면 '창 요소')."""
+    from .i18n import current
+    k = str(k or "")
+    if current() == "ko":
+        return EL_TYPE_NAMES.get(k, "창 요소")
+    return EL_TYPE_NAMES_EN.get(k, "window element")
 
 
 def step_name(k: str) -> str:
@@ -125,7 +155,7 @@ def target_text(t: Any) -> str:
         s = tr("변수 {v}").format(v=t.get("var"))
     elif "element" in t:
         e = t["element"] if isinstance(t["element"], dict) else {}
-        s = tr("버튼 '{name}'").format(name=e.get("name") or e.get("id") or "?")
+        s = f"{el_type_name(e.get('type'))} '{e.get('name') or e.get('id') or '?'}'"
         if e.get("index"):
             s += f" #{e['index']}"
     else:

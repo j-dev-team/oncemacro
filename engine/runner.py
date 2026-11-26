@@ -1255,7 +1255,11 @@ class Runner:
                 self._user_fg = now                      # 사람이 다른 창으로 옮기면 그 창을 기억(오래 도는 매크로)
             uf = getattr(self, "_user_fg", None)
             fn = getattr(win, "keep_user_foreground", None)
-            if uf and fn and fn(uf):
+            r = fn(uf) if uf and fn else False
+            if r == "user":
+                self._user_fg = None                     # 사람이 대상 창을 골라 씀 → 다른 창으로 옮길 때까지 안 지킴
+                self._emit("focus_guard_user", path=path)
+            elif r:
                 self._emit("focus_guard", path=path)
         except Exception:
             pass

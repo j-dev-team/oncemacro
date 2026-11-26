@@ -24,6 +24,10 @@ user32.GetWindowTextW.argtypes = [HWND, wintypes.LPWSTR, ctypes.c_int]
 user32.IsWindowVisible.argtypes = [HWND]
 user32.IsWindow.argtypes = [HWND]
 user32.IsIconic.argtypes = [HWND]
+user32.WindowFromPoint.argtypes = [wintypes.POINT]
+user32.WindowFromPoint.restype = HWND
+user32.GetAncestor.argtypes = [HWND, ctypes.c_uint]
+user32.GetAncestor.restype = HWND
 user32.GetWindowThreadProcessId.argtypes = [HWND, ctypes.POINTER(wintypes.DWORD)]
 user32.GetClientRect.argtypes = [HWND, ctypes.POINTER(wintypes.RECT)]
 user32.ClientToScreen.argtypes = [HWND, ctypes.POINTER(wintypes.POINT)]
@@ -596,6 +600,26 @@ class Win32Window(Window):
             return None
         return int(fg)
 
+    def _user_chose(self, mine: int) -> bool:
+        """앞 창이 대상 프로그램으로 바뀐 게 사람이 한 일인가: 방금 사람 입력이 있었거나(이 프로그램이 보낸 입력 제외),
+        커서가 대상 창 위·작업 표시줄 위에 있음(눌러서 골랐음)."""
+        try:
+            if idle_seconds() < 1.5:
+                return True
+            p = wintypes.POINT()
+            user32.GetCursorPos(ctypes.byref(p))
+            h = user32.WindowFromPoint(p)
+            root = user32.GetAncestor(h, 2) if h else 0                  # GA_ROOT
+            if not root:
+                return False
+            if self._pid_of(root) == mine:
+                return True
+            buf = ctypes.create_unicode_buffer(64)
+            user32.GetClassNameW(root, buf, 64)
+            return buf.value in ("Shell_TrayWnd", "Shell_SecondaryTrayWnd")
+        except Exception:
+            return False
+
     def keep_user_foreground(self, user_fg: int) -> bool:
         """대상 프로그램(뜬 대화상자 포함)이 앞 창을 가져갔으면 사람이 쓰던 창으로 돌리고, 대상 창들은 그 뒤로.
         사람이 직접 다른 창으로 옮긴 경우(앞 창이 대상 프로그램이 아님)는 건드리지 않는다. 되돌렸으면 True."""
@@ -615,6 +639,8 @@ class Win32Window(Window):
             return False
         if self._popup_open(mine):
             return False             # 펼침 메뉴가 떠 있으면 미룸(앞 창을 돌리면 메뉴가 닫힘 — 엑셀 리본 '표시' 확인)
+        if self._user_chose(mine):
+            return "user"            # 사람이 직접 대상 창을 앞으로 골랐음 → 되돌리지 않음(11-24 사용자: 게임을 골랐더니 뒤로 감)
         activate_hwnd(user_fg)
         hs = []
         proto = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)

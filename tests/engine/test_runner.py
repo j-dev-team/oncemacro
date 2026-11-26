@@ -963,3 +963,45 @@ def test_hidden_needs_background_and_support():
     res = w.runner(new_macro("m", [{"type": "click", "target": {"point": [5, 5]}}],
                              window={"title": "x", "background": True, "hidden": True})).run()
     assert res.status != "ok" or res.failed_iterations == 1
+
+
+# ---- 뒤에서 실행 중 앞 창 지키기: 사람이 직접 대상 창을 고르면 되돌리지 않음(11-24)
+class _GuardWindow(FakeWindow):
+    def __init__(self, *a, answer=True, **k):
+        super().__init__(*a, **k)
+        self.answer, self.calls = answer, []
+
+    def user_foreground(self):
+        return None
+
+    def keep_user_foreground(self, uf):
+        self.calls.append(uf)
+        return self.answer
+
+
+def _guard_world(answer):
+    w = World()
+    bg = _BgInput(w.clock)
+    w.window = _GuardWindow((0, 0), bg_input=bg, answer=answer)
+    return w
+
+
+def test_focus_guard_stops_when_person_chose_target():
+    w = _guard_world("user")
+    r = w.runner(new_macro("m", [{"type": "click", "target": {"point": [1, 1]}}] * 3,
+                           window={"title": "x", "background": True}))
+    r._get_window()
+    r._user_fg = 123
+    r._guard_focus("p")
+    assert r._user_fg is None and any(e["event"] == "focus_guard_user" for e in w.events)
+    r._guard_focus("p")                                  # 사람이 다른 창으로 옮기기 전까지 다시 지키지 않음
+    assert w.window.calls == [123]
+
+
+def test_focus_guard_still_restores_when_target_stole_focus():
+    w = _guard_world(True)
+    r = w.runner(new_macro("m", [], window={"title": "x", "background": True}))
+    r._get_window()
+    r._user_fg = 123
+    r._guard_focus("p")
+    assert r._user_fg == 123 and any(e["event"] == "focus_guard" for e in w.events)
