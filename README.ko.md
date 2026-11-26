@@ -4,6 +4,8 @@
 
 ![원스매크로: AI가 프로그램 화면을 보고 매크로를 만들고, 오류가 나면 고쳐서 다시 실행하는 모습](media/demo/oncemacro_story.gif)
 
+https://github.com/user-attachments/assets/079279b8-d2b4-401d-a597-b3407677117a
+
 1분 영상, 소리 있음(mp4 내려받기): [한국어](media/demo/oncemacro_story_ko.mp4?raw=true) · [English](media/demo/oncemacro_story_en.mp4?raw=true) · English README: [README.md](README.md)
 
 AI 에이전트(Claude Code, Codex 등)에게 무엇을 자동으로 할지 말하면 됩니다. AI가 창을 보고 매크로를 쓰고, 실행해 보고, 막히는 곳을 고칩니다. 그다음부터 매크로는 AI 없이 반복합니다. 토큰이 들지 않습니다.

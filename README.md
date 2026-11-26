@@ -4,6 +4,8 @@
 
 ![OnceMacro: the AI looks at an app, builds the macro, hits an error, fixes it and runs it again](media/demo/oncemacro_story.gif)
 
+https://github.com/user-attachments/assets/638b16ee-5a08-456e-af9f-4ff54ac49d04
+
 1-minute video with sound (mp4 download): [English](media/demo/oncemacro_story_en.mp4?raw=true) · [한국어](media/demo/oncemacro_story_ko.mp4?raw=true) · 한국어 설명: [README.ko.md](README.ko.md)
 
 Tell your AI agent (Claude Code, Codex, ...) what to automate. It looks at the window, writes the macro, runs it and fixes what breaks; from then on the macro repeats without AI — no tokens.
